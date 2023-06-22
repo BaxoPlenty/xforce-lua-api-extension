@@ -1,0 +1,423 @@
+{
+    "(none)": {
+        "g_lua": {
+            "signature": "(global) g_lua",
+            "documentation": "The global for the most important functions contained in a script."
+        },
+        "g_hooking": {
+            "signature": "(global) g_hooking",
+            "documentation": "The global for hooking functions."
+        },
+        "g_util": {
+            "signature": "(global) g_util",
+            "documentation": "The global containing useful utility functions."
+        },
+        "g_math": {
+            "signature": "(global) g_math",
+            "documentation": "The global containing math functions."
+        },
+        "g_ini": {
+            "signature": "(global) g_ini",
+            "documentation": "The global containing functions used for writing and reading ini files."
+        },
+        "g_translation": {
+            "signature": "(global) g_translation",
+            "documentation": "The global containing functions used for translation files."
+        },
+        "g_gui": {
+            "signature": "(global) g_gui",
+            "documentation": "The global used for editing the native gui of X-Force followed by a few functions like triggering a toast notification."
+        },
+        "g_imgui": {
+            "signature": "(global) g_imgui",
+            "documentation": "The global with functions used to create and modify imgui windows."
+        },
+        "g_logger": {
+            "signature": "(global) g_logger",
+            "documentation": "Used for logging text to the X-Force console."
+        },
+        "g_os": {
+            "signature": "(global) g_os",
+            "documentation": "This can be used to get the time."
+        },
+        "g_native": {
+            "signature": "(global) g_native",
+            "documentation": "This is used to call natives by hash on your own way."
+        },
+        "g_memory": {
+            "signature": "(global) g_memory",
+            "documentation": "Can be used to write and read memory addresses, scan for patterns and other stuff. Be careful with this."
+        }
+    },
+    "g_lua": {
+        "register": {
+            "kind": 3,
+            "signature": "void register()",
+            "documentation": "This script MUST be called at the beginning of your lua script."
+        },
+        "unregister": {
+            "kind": 3,
+            "signature": "void unregister()",
+            "documentation": "Calling this function will unload your script."
+        }
+    },
+    "g_hooking": {
+        "register_hook": {
+            "kind": 3,
+            "signature": "int register_hook(string type, function hook)",
+            "documentation": "This function creates a hook with a name."
+        },
+        "unregister_hook": {
+            "kind": 3,
+            "signature": "void unregister_hook(int handle)",
+            "documentation": "This function unregisters a hook."
+        },
+        "register_D3D_hook": {
+            "kind": 3,
+            "signature": "int register_D3D_hook(function hook)",
+            "documentation": "No documentation yet"
+        }
+    },
+    "g_util": {
+        "yield": {
+            "kind": 3,
+            "signature": "void yield(int? ms)",
+            "documentation": "If executed within a script thread, the thread will be paused for the optional time.",
+            "parameters": [
+                {
+                    "label": "int? ms",
+                    "documentation": "The milliseconds to wait."
+                }
+            ]
+        },
+        "get_selected_player": {
+            "kind": 3,
+            "signature": "Player get_selected_player()",
+            "documentation": "Returns the current selected player in the player list of the menu."
+        },
+        "is_key_pressed": {
+            "kind": 3,
+            "signature": "bool is_key_pressed(int key)",
+            "documentation": "Checks whether specified key is pressed. You can find key ids on https://keycode.info/"
+        },
+        "trigger_script_event": {
+            "kind": 3,
+            "signature": "void trigger_script_event(Player player, array<int> data)",
+            "documentation": "This function is used to trigger a script event on specified player."
+        },
+        "joaat": {
+            "kind": 3,
+            "signature": "Hash joaat(string str)",
+            "documentation": "Converts the specified str to a hash."
+        },
+        "trigger_presence_event": {
+            "kind": 3,
+            "signature": "void trigger_presence_event(int rid, string event)",
+            "documentation": "Triggers a presence event on a rockstar id."
+        },
+        "get_menu_version": {
+            "kind": 3,
+            "signature": "string get_menu_version()",
+            "documentation": "Returns the current menu version."
+        },
+        "enable_cursor": {
+            "kind": 3,
+            "signature": "void enable_cursor(bool toggle)",
+            "documentation": "Toggles the cursor visibility and functionality."
+        },
+        "load_xml_vehicle": {
+            "kind": 3,
+            "signature": "Vehicle load_xml_vehicle(string filepath)",
+            "documentation": "Loads a vehicle from a xml file."
+        },
+        "load_lua": {
+            "kind": 3,
+            "signature": "void load_lua(string filepath)",
+            "documentation": "Loads a lua file."
+        },
+        "play_wav_file": {
+            "kind": 3,
+            "signature": "void play_wav_file(string file, bool looped, bool stop)",
+            "documentation": "No documentation yet",
+            "parameters": [
+                {
+                    "label": "string file",
+                    "documentation": "file"
+                },
+                {
+                    "label": "bool looped",
+                    "documentation": "loop"
+                },
+                {
+                    "label": "bool stop",
+                    "documentation": "stop"
+                }
+            ]
+        },
+        "trigger_request_control_event": {
+            "kind": 3,
+            "signature": "bool trigger_request_control_event(Entity entity)",
+            "documentation": "No documentation yet"
+        },
+        "force_remove_player": {
+            "kind": 3,
+            "signature": "void force_remove_player(Player player)",
+            "documentation": "No documentation yet"
+        },
+        "create_thread": {
+            "kind": 3,
+            "signature": "void create_thread(function callback)",
+            "documentation": "No documentation yet"
+        }
+    },
+    "g_math": {
+        "sin": {
+            "kind": 3,
+            "signature": "int sin(int value)",
+            "documentation": "No documentation yet"
+        },
+        "cos": {
+            "kind": 3,
+            "signature": "int cos(int value)",
+            "documentation": "No documentation yet"
+        },
+        "tan": {
+            "kind": 3,
+            "signature": "int tan(int value)",
+            "documentation": "No documentation yet"
+        }
+    },
+    "g_ini": {
+        "write_string": {
+            "kind": 3,
+            "signature": "void write_string(string filepath, string app, string key, string value)",
+            "documentation": "This function can store a string value in an ini file."
+        },
+        "write_int": {
+            "kind": 3,
+            "signature": "void write_int(string filepath, string app, string key, int value)",
+            "documentation": "This function can store an int value in an ini file."
+        },
+        "write_float": {
+            "kind": 3,
+            "signature": "void write_float(string filepath, string app, string key, float value)",
+            "documentation": "This function can store a float value in an ini file."
+        },
+        "write_bool": {
+            "kind": 3,
+            "signature": "void write_bool(string filepath, string app, string key, bool value)",
+            "documentation": "This function can store a bool value in an ini file."
+        },
+        "read_string": {
+            "kind": 3,
+            "signature": "string read_string(string filepath, string app, string key)",
+            "documentation": "This function fetches a string value from an ini file"
+        },
+        "read_int": {
+            "kind": 3,
+            "signature": "int read_int(string filepath, string app, string key)",
+            "documentation": "This function fetches a int value from an ini file"
+        },
+        "read_float": {
+            "kind": 3,
+            "signature": "float read_float(string filepath, string app, string key)",
+            "documentation": "This function fetches a float value from an ini file"
+        },
+        "read_bool": {
+            "kind": 3,
+            "signature": "bool read_bool(string filepath, string app, string key)",
+            "documentation": "This function fetches a bool value from an ini file"
+        }
+    },
+    "g_translation": {
+        "reset": {
+            "kind": 3,
+            "signature": "void reset()",
+            "documentation": "This function unloads the loaded translation which results in showing the default text again."
+        },
+        "load": {
+            "kind": 3,
+            "signature": "void load(string filepath)",
+            "documentation": "This function loads a translation file."
+        },
+        "get_translated": {
+            "kind": 3,
+            "signature": "string get_translated(string text)",
+            "documentation": "This function returns the translation of the string passed into it. Incase there is no available translation, this function returns the passed in string."
+        }
+    },
+    "g_gui": {
+        "add_toast": {
+            "kind": 3,
+            "signature": "void add_toast(string text, string title, int? time)",
+            "documentation": "Shows a toast notification with given text, title and optional time."
+        },
+        "add_toggle": {
+            "kind": 3,
+            "signature": "void add_toggle(string childWindow, string name, bool startValue, string? tooltip, function callback)",
+            "documentation": "This function adds a toggle option in the selected submenu (childWindow)."
+        },
+        "add_button": {
+            "kind": 3,
+            "signature": "void add_button(string childWindow, string name, bool startValue, string? tooltip, function callback)",
+            "documentation": "This function adds a button option in the selected submenu (childWindow)."
+        },
+        "add_input_int": {
+            "kind": 3,
+            "signature": "void add_input_int(string childWindow, string name, int startValue, int minValue, int maxValue, int? step, function callback)",
+            "documentation": "This function adds a int input option in the selected submenu (childWindow)."
+        },
+        "add_input_float": {
+            "kind": 3,
+            "signature": "void add_input_float(string childWindow, string name, float startValue, float minValue, float maxValue, float? step, function callback)",
+            "documentation": "This function adds a float input option in the selected submenu (childWindow)."
+        },
+        "add_separator": {
+            "kind": 3,
+            "signature": "void add_separator(string childWindow, string name)",
+            "documentation": "This function adds a separator in the selected submenu (childWindow)."
+        },
+        "add_submenu": {
+            "kind": 3,
+            "signature": "void add_submenu(string childWindow, string name, string? tooltip)",
+            "documentation": "This function adds a submenu in the selected submenu (childWindow) with the given name."
+        },
+        "get_option_count": {
+            "kind": 3,
+            "signature": "int get_option_count()",
+            "documentation": "Gets the option count of the current submenu."
+        },
+        "get_selected_option": {
+            "kind": 3,
+            "signature": "int get_selected_option()",
+            "documentation": "Gets the selected option of the current submenu."
+        },
+        "get_max_options": {
+            "kind": 3,
+            "signature": "int get_max_options()",
+            "documentation": "No documentation yet"
+        },
+        "is_menu_opened": {
+            "kind": 3,
+            "signature": "bool is_menu_opened()",
+            "documentation": "Gets if the menu is currently opened."
+        },
+        "get_text_size": {
+            "kind": 3,
+            "signature": "vec2 get_text_size()",
+            "documentation": "Gets the text size as a vec2."
+        },
+        "get_option_size": {
+            "kind": 3,
+            "signature": "vec2 get_option_size()",
+            "documentation": "No documentation yet"
+        },
+        "get_menu_position": {
+            "kind": 3,
+            "signature": "vec2 get_menu_position()",
+            "documentation": "No documentation yet"
+        },
+        "get_menu_size": {
+            "kind": 3,
+            "signature": "int get_menu_size()",
+            "documentation": "No documentation yet"
+        },
+        "get_banner_height": {
+            "kind": 3,
+            "signature": "int get_banner_height()",
+            "documentation": "No documentation yet"
+        },
+        "disable_hotkeys": {
+            "kind": 3,
+            "signature": "void disable_hotkeys(bool disable)",
+            "documentation": "No documentation yet"
+        },
+        "show_menu_ui": {
+            "kind": 3,
+            "signature": "void show_menu_ui(bool show)",
+            "documentation": "No documentation yet"
+        },
+        "press_option": {
+            "kind": 3,
+            "signature": "void press_option(int submenuId, int optionId)",
+            "documentation": "No documentation yet"
+        },
+        "get_current_option_id": {
+            "kind": 3,
+            "signature": "int get_current_option_id()",
+            "documentation": "No documentation yet"
+        },
+        "get_current_submenu_id": {
+            "kind": 3,
+            "signature": "int get_current_submenu_id()",
+            "documentation": "No documentation yet"
+        },
+        "go_to_submenu": {
+            "kind": 3,
+            "signature": "void go_to_submenu(int submenuId)",
+            "documentation": "No documentation yet"
+        },
+        "add_input_text": {
+            "kind": 3,
+            "signature": "void add_input_text(string childWindow, string name, string startValue, bool showText, string? tooltip, function callback",
+            "documentation": "CHECK THE OFFICIAL DOCUMENTATION FOR ALL THE OVERLOADS. This function adds a text input option in the selected submenu (childWindow)."
+        }
+    },
+    "g_imgui": {
+        "add_window": {
+            "kind": 3,
+            "signature": "void add_window(string name, bool show, bool noTitleBar)",
+            "documentation": "This function creates a new imgui window." 
+        },
+        "add_toggle": {
+            "kind": 3,
+            "signature": "void add_toggle(string childWindow, string name, bool startValue, function callback)",
+            "documentation": "This function adds a toggle option into the given imgui window (childWindow)."
+        },
+        "add_button": {
+            "kind": 3,
+            "signature": "void add_button(string childWindow, string name, function callback)",
+            "documentation": "This function adds a button option into the given imgui window (childWindow)."
+        },
+        "add_input_int": {
+            "kind": 3,
+            "signature": "void add_input_int(string childWindow, string name, int startValue, int minValue, int maxValue, function callback)",
+            "documentation": "This function adds an int input option into the given imgui window (childWindow)."
+        },
+        "add_text": {
+            "kind": 3,
+            "signature": "void add_text(string childWindow, string text)",
+            "documentation": "This function adds a text into the given imgui window (childWindow)."
+        },
+        "add_sameline": {
+            "kind": 3,
+            "signature": "void add_sameline(string childWindow)",
+            "documentation": "This function reloactes the next option that gets added into the same line as the last option. Effects the given imgui window (childWindow)"
+        }
+    },
+    "g_logger": {
+        "log_info": {
+            "kind": 3,
+            "signature": "void log_info(string text)",
+            "documentation": "Logs the given text to the X-Force console."
+        }
+    },
+    "g_os": {
+        "time": {
+            "kind": 3,
+            "signature": "int time()",
+            "documentation": "Gets the current time. Useful for timers."
+        },
+        "time_ms": {
+            "kind": 3,
+            "signature": "int time_ms()",
+            "documentation": "This function gets the current time in milliseconds. Useful for timers."
+        }
+    },
+    "g_native": {
+
+    },
+    "g_memory": {
+        
+    }
+}

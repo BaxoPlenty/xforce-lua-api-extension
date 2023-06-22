@@ -1,0 +1,47 @@
+{
+	"name": "xforce-lua-api-extension",
+	"displayName": "X-Force Lua API Extension",
+	"description": "This extension is adding Intellisense, Snippets and other stuff for the X-Force Lua API to VSCode",
+	"version": "1.0.0",
+	"publisher": "baxoplenty",
+	"repository": "https://github.com/BaxoPlenty/xforce-lua-api-extension",
+	"engines": {
+		"vscode": "^1.74.0"
+	},
+	"categories": [
+		"Programming Languages"
+	],
+	"activationEvents": [
+		"onLanguage:lua"
+	],
+	"main": "./out/extension.js",
+	"capabilities": {
+		"completionProvider": {
+			"resolveProvider": "true",
+			"triggerCharacters": [
+				"."
+			]
+		},
+		"signatureHelpProvider": {
+			"triggerCharacters": [
+				"(",
+				","
+			]
+		},
+		"hoverProvider": "true"
+	},
+	"scripts": {
+		"vscode:prepublish": "npm run compile",
+		"compile": "tsc -p ./",
+		"lint": "eslint \"src/**/*.ts\"",
+		"watch": "tsc -watch -p ./"
+	},
+	"devDependencies": {
+		"@types/node": "^16.18.34",
+		"@types/vscode": "^1.73.0",
+		"@typescript-eslint/eslint-plugin": "^5.42.0",
+		"@typescript-eslint/parser": "^5.42.0",
+		"eslint": "^8.26.0",
+		"typescript": "^5.1.3"
+	}
+}
