@@ -5,16 +5,32 @@
 	"version": "1.0.0",
 	"publisher": "baxoplenty",
 	"repository": "https://github.com/BaxoPlenty/xforce-lua-api-extension",
+	"icon": "icon.png",
 	"engines": {
 		"vscode": "^1.74.0"
 	},
 	"categories": [
-		"Programming Languages"
+		"Programming Languages",
+		"Snippets"
 	],
 	"activationEvents": [
 		"onLanguage:lua"
 	],
 	"main": "./out/extension.js",
+	"contributes": {
+		"commands": [
+			{
+				"command": "xforce.openDocs",
+				"title": "Open X-Force Lua API Documentation"
+			}
+		],
+		"snippets": [
+			{
+				"language": "lua",
+				"path": "./snippets.json"
+			}
+		]
+	},
 	"capabilities": {
 		"completionProvider": {
 			"resolveProvider": "true",

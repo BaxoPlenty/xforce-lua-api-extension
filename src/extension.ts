@@ -33,18 +33,18 @@ class Identifier {
         this.global = (_global == '' ? undefined : _global);
 
         if (this.global !== undefined) {
-            var luaGlobal = definitions[this.global];
+            const luaGlobal = definitions[this.global];
 
             if (luaGlobal !== undefined) {
-                var luaFunction = luaGlobal[this.identifier];
+                const luaFunction = luaGlobal[this.identifier];
 
                 if (luaFunction !== undefined) {
                     this.signature = luaFunction;
                 }
             }
         } else {
-            var luaGlobal = definitions['(none)'];
-            var luaFunction = luaGlobal[this.identifier];
+            const luaGlobal = definitions['(none)'];
+            const luaFunction = luaGlobal[this.identifier];
 
             if (luaFunction !== undefined) {
                 this.signature = luaFunction;
@@ -53,14 +53,14 @@ class Identifier {
     }
 }
 
-const charList: string = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789_.';
+const charList = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789_.';
 
 function isValid(str: string) {
     return charList.includes(str);
 }
 
 function buildMarkdownString(namespace: string | undefined, detail: string, docs: string) {
-    var content = new vscode.MarkdownString('');
+    const content = new vscode.MarkdownString('');
 
     if (namespace !== undefined) {
         content.appendMarkdown(`<h6>${namespace}</h6>`);
@@ -80,10 +80,10 @@ function traceCompletionIdentifier(word: string, charLocation: number) {
         word = word.substring(0, charLocation);
     }
 
-    var completedWord = "";
+    let completedWord = "";
 
-    for (var i = charLocation; i > 0; i--) {
-        var currentChar = word.charAt(i);
+    for (let i = charLocation; i > 0; i--) {
+        const currentChar = word.charAt(i);
 
         if (!isValid(currentChar)) {
             return completedWord;
@@ -96,13 +96,11 @@ function traceCompletionIdentifier(word: string, charLocation: number) {
 }
 
 function traceHoverIdentifier(word: string, charLocation: number): Identifier | undefined {
-    var completedWord = "";
-
-    console.log(1)
+    let completedWord = "";
 
     if (word.length > charLocation) {
-        for (var i = charLocation; i < word.length; i++) {
-            var currentChar = word.charAt(i);
+        for (let i = charLocation; i < word.length; i++) {
+            const currentChar = word.charAt(i);
 
             if (currentChar === '.' || currentChar === '(') {
                 break;
@@ -114,10 +112,8 @@ function traceHoverIdentifier(word: string, charLocation: number): Identifier | 
         }
     }
 
-    console.log(2)
-
-    for (var i = charLocation - 1; i >= 0; i--) {
-        var currentChar = word.charAt(i);
+    for (let i = charLocation - 1; i >= 0; i--) {
+        const currentChar = word.charAt(i);
 
         if (!isValid(currentChar)) {
             console.log('INVAL', currentChar);
@@ -129,10 +125,8 @@ function traceHoverIdentifier(word: string, charLocation: number): Identifier | 
     }
 
     if (completedWord.length > 0) {
-        console.log(completedWord)
-
         if (completedWord.includes('.')) {
-            var splitted = completedWord.split('.');
+            const splitted = completedWord.split('.');
 
             return new Identifier(splitted[1], splitted[0]);
         } else {
@@ -144,14 +138,14 @@ function traceHoverIdentifier(word: string, charLocation: number): Identifier | 
 }
 
 function traceSignatureCommas(line: string, charLocation: number): number {
-    var commas = 0;
-    var counter = 0;
-    var captureCommas = true;
+    let commas = 0;
+    let counter = 0;
+    let captureCommas = true;
 
     line = line.substring(0, charLocation);
 
-    for (var i = charLocation; i >= 0; i--) {
-        var currentChar = line.charAt(i);
+    for (let i = charLocation; i >= 0; i--) {
+        const currentChar = line.charAt(i);
 
         if (currentChar === ',') {
             if (captureCommas) {
@@ -182,16 +176,16 @@ function traceSignatureCommas(line: string, charLocation: number): number {
 }
 
 function traceSignatureIdentifier(line: string, charLocation: number): Identifier | undefined {
-    var counter = 0;
-    var captureIdentifier = false;
-    var captureGlobal = false;
-    var global = '';
-    var identifier = '';
+    let counter = 0;
+    let captureIdentifier = false;
+    let captureGlobal = false;
+    let global = '';
+    let identifier = '';
 
     line = line.substring(0, charLocation);
 
-    for (var i = charLocation; i >= 0; i--) {
-        var currentChar = line.charAt(i);
+    for (let i = charLocation; i >= 0; i--) {
+        const currentChar = line.charAt(i);
 
         if (captureIdentifier || captureGlobal) {
             if (currentChar === '.') {
@@ -231,52 +225,56 @@ function traceSignatureIdentifier(line: string, charLocation: number): Identifie
 }
 
 export function activate(context: vscode.ExtensionContext) {
-    console.log('xf-lua-api-extension enabled');
+    console.log('xforce-lua-api-extension enabled');
+
+    const goToDocsCommandHandler = vscode.commands.registerCommand('xforce.openDocs', () => {
+        vscode.env.openExternal(vscode.Uri.parse('https://docs.xforce.menu'));
+    });
+
+    context.subscriptions.push(goToDocsCommandHandler);
 
     const completionItemProvider = vscode.languages.registerCompletionItemProvider('lua', {
         provideCompletionItems(document, position, token, context) {
-            var items: vscode.CompletionItem[] = [];
-            var word = document.getText(document.lineAt(position.line).range);
-            var identifier = traceCompletionIdentifier(word, position.character);
-            var hasNamespace = false;
-            var namespace;
+            const items: vscode.CompletionItem[] = [];
+            const word = document.getText(document.lineAt(position.line).range);
+            let identifier = traceCompletionIdentifier(word, position.character);
+            let globalIdentifier;
 
             if (identifier.includes('.')) {
-                var splitted = identifier.split('.');
+                const splitted = identifier.split('.');
 
                 if (splitted.length > 2) {
                     return items;
                 } else {
-                    hasNamespace = true;
-                    namespace = splitted[0];
+                    globalIdentifier = splitted[0];
                     identifier = splitted[1];
                 }
             }
 
-            if (hasNamespace && namespace !== undefined) {
-                var namespaceDefinitions: GlobalMembers = definitions[namespace];
+            if (globalIdentifier !== undefined) {
+                const luaGlobal: GlobalMembers = definitions[globalIdentifier];
 
-                for (var label in namespaceDefinitions) {
-                    var definition: FunctionSignature = namespaceDefinitions[label];
+                for (const label in luaGlobal) {
+                    const luaFunction: FunctionSignature = luaGlobal[label];
 
-                    if (definition.kind !== undefined) {
-                        var item: vscode.CompletionItem = new vscode.CompletionItem(label, definition.kind - 1);
+                    if (luaFunction.kind !== undefined) {
+                        const item: vscode.CompletionItem = new vscode.CompletionItem(label, luaFunction.kind - 1);
 
-                        item.documentation = definition.documentation;
-                        item.detail = definition.signature;
+                        item.documentation = luaFunction.documentation;
+                        item.detail = luaFunction.signature;
 
                         items.push(item);
                     }
                 }
             } else {
-                var namespaceDefinitions: GlobalMembers = definitionsImport["(none)"];
+                const luaGlobal: GlobalMembers = definitionsImport["(none)"];
 
-                for (var label in namespaceDefinitions) {
-                    var definition: FunctionSignature = namespaceDefinitions[label];
-                    var item = new vscode.CompletionItem(label, 8);
+                for (const label in luaGlobal) {
+                    const luaFunction: FunctionSignature = luaGlobal[label];
+                    const item = new vscode.CompletionItem(label, 8);
 
-                    item.documentation = definition.documentation;
-                    item.detail = definition.signature;
+                    item.documentation = luaFunction.documentation;
+                    item.detail = luaFunction.signature;
 
                     items.push(item);
                 }
@@ -284,7 +282,7 @@ export function activate(context: vscode.ExtensionContext) {
 
             return {
                 items
-            }
+            };
         },
     }, '.');
 
@@ -292,14 +290,12 @@ export function activate(context: vscode.ExtensionContext) {
 
     const hoverProvider = vscode.languages.registerHoverProvider('lua', {
         provideHover(document, position, token) {
-            var hover;
-            var line = document.getText(document.lineAt(position.line).range);
-            var identifier = traceHoverIdentifier(line, position.character);
+            let hover;
+            const line = document.getText(document.lineAt(position.line).range);
+            const identifier = traceHoverIdentifier(line, position.character);
 
             if (identifier !== undefined) {
                 if (identifier.signature !== undefined) {
-                    console.log(identifier)
-
                     hover = new vscode.Hover(buildMarkdownString(identifier.global, identifier.signature.signature, identifier.signature.documentation));
                 }
             }
@@ -312,17 +308,17 @@ export function activate(context: vscode.ExtensionContext) {
 
     const signatureHelpProvider = vscode.languages.registerSignatureHelpProvider('lua', {
         provideSignatureHelp(document, position, token, context) {
-            var signatureHelp = new vscode.SignatureHelp();
-            var line = document.getText(document.lineAt(position.line).range);
-            var identifier = traceSignatureIdentifier(line, position.character);
+            const signatureHelp = new vscode.SignatureHelp();
+            const line = document.getText(document.lineAt(position.line).range);
+            const identifier = traceSignatureIdentifier(line, position.character);
 
             if (identifier !== undefined) {
                 if (identifier.signature !== undefined) {
-                    var signature = identifier.signature;
-                    var helpInformation = new vscode.SignatureInformation(signature.signature, signature.documentation);
+                    const signature = identifier.signature;
+                    const helpInformation = new vscode.SignatureInformation(signature.signature, signature.documentation);
 
                     if (signature.parameters !== undefined) {
-                        for (var param of signature.parameters) {
+                        for (const param of signature.parameters) {
                             helpInformation.parameters.push(new vscode.ParameterInformation(param.label, param.documentation));
                         }
 

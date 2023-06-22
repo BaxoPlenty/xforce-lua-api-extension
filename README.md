@@ -9,6 +9,11 @@ This extension is adding Intellisense, Snippets and other stuff for the X-Force 
 - Snippets
 - Commands
 
-## Features WIP
+## To-Do Features
 
-- Autocompleting functions of classes
+- Add user-defined variables and functions to autocomplete
+- Autocomplete functions of classes
+
+## How to suggest
+
+Simply create a new issue, enter your title and a (please detailed) description of the suggestion. Add the "enhancement" label on the issue and post it!

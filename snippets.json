@@ -1,0 +1,14 @@
+{
+    "Script Base": {
+        "prefix": "xf::script_base",
+        "body": [
+            "g_lua.register()",
+            "",
+            "log = g_logger.log_info",
+            "joaat = g_util.joaat",
+            "toast = g_gui.add_toast",
+            "",
+            "-- Code here"
+        ]
+    }
+}
