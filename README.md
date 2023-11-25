@@ -6,6 +6,10 @@ This extension is adding Intellisense, Snippets and other stuff for the X-Force 
 
 Because of the development of X-Forces new Lua engine + the upcoming v8.0, I have paused the development until it is released.
 
+## Code Improvement
+
+Feel free to create pull requests or anything to improve my code. I haven't worked on it a lot.
+
 ## Features
 
 - Autocomplete to speed up your coding
